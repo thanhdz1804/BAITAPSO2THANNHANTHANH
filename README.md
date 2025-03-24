@@ -1,4 +1,4 @@
-# Bài tập 02 của sv: K225480106069 - Thân Nhân Thành - Môn Hệ quản trị csdl
+# Bài tập 02 của sv: K225480106059 - Thân Nhân Thành - Môn Hệ quản trị csdl
 
 ## BÀI TẬP VỀ NHÀ 02 - MÔN HỆ QUẢN TRỊ CSDL:
 
@@ -88,90 +88,6 @@
 ### code
 ![image](https://github.com/user-attachments/assets/0c19a2b1-cd85-416e-9763-b3f6ed60b9ba)
 ## Các phần còn lại làm tương tự như trên!!
-[Uploading Script_DML.sql…]()
--- Tạo cơ sở dữ liệu
-CREATE DATABASE QLSV;
-GO
-USE QLSV;
-GO
--- Tạo bảng Khoa
-CREATE TABLE Khoa (
-    maKhoa INT PRIMARY KEY,
-    tenKhoa NVARCHAR(100) NOT NULL
-);
--- Tạo bảng BoMon
-CREATE TABLE BoMon (
-    maBM INT PRIMARY KEY,
-    tenBM NVARCHAR(100) NOT NULL,
-    maKhoa INT FOREIGN KEY REFERENCES Khoa(maKhoa)
-);
--- Tạo bảng GiaoVien
-CREATE TABLE GiaoVien (
-    maGV INT PRIMARY KEY,
-    hoTen NVARCHAR(100) NOT NULL,
-    ngaySinh DATE,
-    maBM INT FOREIGN KEY REFERENCES BoMon(maBM)
-);
--- Tạo bảng SinhVienrdt nh
-CREATE TABLE SinhVien (
-    maSV INT PRIMARY KEY,
-    hoTen NVARCHAR(100) NOT NULL,
-    ngaySinh DATE
-);
--- Tạo bảng Lop
-CREATE TABLE Lop (
-    maLop INT PRIMARY KEY,
-    tenLop NVARCHAR(100) NOT NULL
-);
--- Tạo bảng MonHoc
-CREATE TABLE MonHoc (
-    maMon INT PRIMARY KEY,
-    tenMon NVARCHAR(100) NOT NULL,
-    STC INT CHECK (STC > 0)
-);
--- Tạo bảng LopHP
-CREATE TABLE LopHP (
-    maLopHP INT PRIMARY KEY,
-    tenLopHP NVARCHAR(100) NOT NULL,
-    HK NVARCHAR(50),
-    maMon INT FOREIGN KEY REFERENCES MonHoc(maMon),
-    maGV INT FOREIGN KEY REFERENCES GiaoVien(maGV)
-);
--- Tạo bảng GVCN
-CREATE TABLE GVCN (
-    maLop INT,
-    maGV INT,
-    HK NVARCHAR(50),
-    PRIMARY KEY (maLop, maGV, HK),
-    FOREIGN KEY (maLop) REFERENCES Lop(maLop),
-    FOREIGN KEY (maGV) REFERENCES GiaoVien(maGV)
-);
--- Tạo bảng LopSV
-CREATE TABLE LopSV (
-    maLop INT,
-    maSV INT,
-    ChucVu NVARCHAR(100),
-    PRIMARY KEY (maLop, maSV),
-    FOREIGN KEY (maLop) REFERENCES Lop(maLop),
-    FOREIGN KEY (maSV) REFERENCES SinhVien(maSV)
-);
--- Tạo bảng DKMH
-CREATE TABLE DKMH (
-    maLopHP INT,
-    maSV INT,
-    DiemTP FLOAT CHECK (DiemTP BETWEEN 0 AND 10),
-    DiemThi FLOAT CHECK (DiemThi BETWEEN 0 AND 10),
-    PhanTramThi FLOAT CHECK (PhanTramThi BETWEEN 0 AND 100),
-    PRIMARY KEY (maLopHP, maSV),
-    FOREIGN KEY (maLopHP) REFERENCES LopHP(maLopHP),
-    FOREIGN KEY (maSV) REFERENCES SinhVien(maSV)
-);
-
-
-
-
-
-
 Mô tả các tham số được sử dụng
 1. Stored Procedure_ @hoTen NVARCHAR(100), @ngaySinh DATE:Nhận giá trị đầu vào để thêm dữ liệu vào bảng.
 2. Trigger (INSERTED, DELETED)_ INSERTED, DELETED:Lấy dữ liệu trước/sau khi thao tác INSERT/UPDATE/DELETE.
@@ -179,6 +95,8 @@ Mô tả các tham số được sử dụng
 4. Table-Valued Function_@maLop INT:	Dùng trong hàm trả về danh sách sinh viên của một lớp.
 ![image](https://github.com/user-attachments/assets/c23ea553-9e83-4949-8be2-9135da5a2c35)
 ![image](https://github.com/user-attachments/assets/b0e51355-7e62-4b7b-96e3-80e402d8e28c)
+## full code sql
+
 
 
 
